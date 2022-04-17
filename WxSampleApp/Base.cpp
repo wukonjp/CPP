@@ -31,18 +31,21 @@ MainFrameBase::MainFrameBase(wxWindow* parent, wxWindowID id, const wxString& ti
 	bSizer1->Add(m_scrolledWindow1, 1, wxEXPAND | wxALL, 5);
 
 	m_panel1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	wxBoxSizer* bSizer5;
-	bSizer5 = new wxBoxSizer(wxVERTICAL);
+	m_panel1->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+	m_panel1->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT));
+
+	wxGridSizer* gSizer3;
+	gSizer3 = new wxGridSizer(0, 0, 0, 0);
 
 	m_button5 = new wxButton(m_panel1, wxID_ANY, wxT("ƒ{ƒ^ƒ“2"), wxDefaultPosition, wxDefaultSize, 0);
 	m_button5->SetFont(wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial")));
 
-	bSizer5->Add(m_button5, 0, wxALL, 5);
+	gSizer3->Add(m_button5, 0, wxALIGN_CENTER | wxALL, 5);
 
 
-	m_panel1->SetSizer(bSizer5);
+	m_panel1->SetSizer(gSizer3);
 	m_panel1->Layout();
-	bSizer5->Fit(m_panel1);
+	gSizer3->Fit(m_panel1);
 	bSizer1->Add(m_panel1, 1, wxEXPAND | wxALL, 5);
 
 	wxStaticBoxSizer* sbSizer1;
@@ -64,22 +67,26 @@ MainFrameBase::~MainFrameBase()
 
 NotifyFrameBase::NotifyFrameBase(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
 {
-	this->SetSizeHints(wxSize(200, 100), wxDefaultSize);
+	this->SetSizeHints(wxSize(-1, -1), wxDefaultSize);
 
 	wxBoxSizer* bSizer21;
 	bSizer21 = new wxBoxSizer(wxVERTICAL);
 
-	bSizer21->SetMinSize(wxSize(200, 100));
+	bSizer21->SetMinSize(wxSize(350, 100));
+	m_panel2 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_panel2->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial")));
+	m_panel2->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+
 	wxGridSizer* gSizer4;
 	gSizer4 = new wxGridSizer(0, 0, 0, 0);
 
 	wxBoxSizer* bSizer22;
 	bSizer22 = new wxBoxSizer(wxHORIZONTAL);
 
-	m_bitmap1 = new wxStaticBitmap(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, 0);
-	bSizer22->Add(m_bitmap1, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+	m_bitmap1 = new wxStaticBitmap(m_panel2, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, 0);
+	bSizer22->Add(m_bitmap1, 0, wxALIGN_CENTER_VERTICAL | wxLEFT, 10);
 
-	m_staticText4 = new wxStaticText(this, wxID_ANY, wxT("message"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText4 = new wxStaticText(m_panel2, wxID_ANY, wxT("message"), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticText4->Wrap(-1);
 	m_staticText4->SetMinSize(wxSize(200, -1));
 
@@ -89,20 +96,34 @@ NotifyFrameBase::NotifyFrameBase(wxWindow* parent, wxWindowID id, const wxString
 	gSizer4->Add(bSizer22, 1, wxEXPAND, 5);
 
 
-	bSizer21->Add(gSizer4, 1, wxEXPAND, 5);
+	m_panel2->SetSizer(gSizer4);
+	m_panel2->Layout();
+	gSizer4->Fit(m_panel2);
+	bSizer21->Add(m_panel2, 1, wxEXPAND, 5);
+
+	m_panel3 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxTAB_TRAVERSAL);
+	m_panel3->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial")));
+	m_panel3->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT));
+	m_panel3->SetMinSize(wxSize(-1, 50));
 
 	wxGridSizer* gSizer5;
 	gSizer5 = new wxGridSizer(0, 0, 0, 0);
 
-	m_button28 = new wxButton(this, wxID_ANY, wxT("MyButton"), wxDefaultPosition, wxDefaultSize, 0);
-	gSizer5->Add(m_button28, 0, wxALIGN_CENTER | wxALL, 5);
+	m_button28 = new wxButton(m_panel3, wxID_ANY, wxT("OK"), wxDefaultPosition, wxSize(70, -1), 0);
+
+	m_button28->SetDefault();
+	gSizer5->Add(m_button28, 0, wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT | wxRIGHT, 10);
 
 
-	bSizer21->Add(gSizer5, 1, wxEXPAND, 5);
+	m_panel3->SetSizer(gSizer5);
+	m_panel3->Layout();
+	gSizer5->Fit(m_panel3);
+	bSizer21->Add(m_panel3, 1, wxEXPAND, 5);
 
 
 	this->SetSizer(bSizer21);
 	this->Layout();
+	bSizer21->Fit(this);
 
 	this->Centre(wxBOTH);
 }

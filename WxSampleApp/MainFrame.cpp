@@ -57,7 +57,7 @@ void MainFrame::OnHello(wxCommandEvent& event)
 
 void MainFrame::OnButton7Clicked(wxCommandEvent& event)
 {
-	auto frame = new NotifyFrame(this, L"OnButton7Clicked", L"message is here.", IDI_ERROR);
+	auto frame = new NotifyFrame(this, L"OnButton7Clicked", L"message is here.\nsecond line.\nthird line.", IDI_ERROR);
 	frame->Show();
 }
 
@@ -77,7 +77,7 @@ NotifyFrame::NotifyFrame(wxWindow* parent, const wxString& title, const wxString
 		wxCAPTION | wxCLOSE_BOX | wxFRAME_FLOAT_ON_PARENT | wxSTAY_ON_TOP | wxTAB_TRAVERSAL
 	)
 {
-	auto hIcon = LoadIconW(NULL, (LPCWSTR)iconStyle);
+	auto hIcon = LoadIconW(NULL, iconStyle);
 	wxIcon icon;
 	icon.CreateFromHICON(hIcon);
 	m_bitmap1->SetBitmap(wxBitmap(icon));

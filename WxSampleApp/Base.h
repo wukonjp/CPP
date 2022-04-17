@@ -58,8 +58,10 @@ class NotifyFrameBase : public wxFrame
 private:
 
 protected:
+	wxPanel* m_panel2;
 	wxStaticBitmap* m_bitmap1;
 	wxStaticText* m_staticText4;
+	wxPanel* m_panel3;
 	wxButton* m_button28;
 
 public:
