@@ -6,21 +6,21 @@
 
 int main()
 {
+	// リトルエンディアン
 	uint32_t data1 = 0x11223344;
 	byte* pData1 = (byte*)&data1;
 	for (int i = 0; i < 4; i++)
 	{
-		std::cout << std::hex << (int)*pData1 << ' ';
-		pData1++;
+		std::cout << std::hex << (int)pData1[i] << ' ';
 	}
 	std::cout << std::endl;
 
+	// ビッグエンディアン
 	uint32_t data2 = htonl(0x11223344);
 	byte* pData2 = (byte*)&data2;
 	for (int i = 0; i < 4; i++)
 	{
-		std::cout << std::hex << (int)*pData2 << ' ';
-		pData2++;
+		std::cout << std::hex << (int)pData2[i] << ' ';
 	}
 	std::cout << std::endl;
 }
