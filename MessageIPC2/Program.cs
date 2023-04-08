@@ -23,28 +23,39 @@ namespace MessageIPC2
 		{
 			while (true)
 			{
-				Console.Write("dstProcID = ");
+				Console.Write("dstProcID ? ");
 				string text = Console.ReadLine();
 				if (int.TryParse(text, out int dstProcID))
 				{
-					try
+					IntPtr hWnd = GetDstWindow("MyWindowClass", dstProcID);
+					if (hWnd != IntPtr.Zero)
 					{
-						IntPtr hWnd = FindWindowEx(HWND_MESSAGE, IntPtr.Zero, "MyWindowClass", null);
-						if (hWnd != IntPtr.Zero)
-						{
-							uint threadID = GetWindowThreadProcessId(hWnd, out uint processID);
-							if (processID == dstProcID)
-							{
-								Console.WriteLine("send to hWnd={0:x8} threadID={1}", (uint)hWnd, threadID);
-								SendMessage(hWnd, WM_APP, (IntPtr)0x11, (IntPtr)0x22);
-							}
-						}
-					}
-					catch
-					{
+						Console.WriteLine("send to hWnd={0:x8}", (uint)hWnd);
+						SendMessage(hWnd, WM_APP, (IntPtr)0x11, (IntPtr)0x22);
 					}
 				}
 			}
+		}
+
+		static IntPtr GetDstWindow(string className, int dstProcID)
+		{
+			IntPtr hWnd = IntPtr.Zero;
+			while (true)
+			{
+				hWnd = FindWindowEx(HWND_MESSAGE, hWnd, className, null);
+				if (hWnd == IntPtr.Zero)
+				{
+					break;
+				}
+
+				uint threadID = GetWindowThreadProcessId(hWnd, out uint processID);
+				if (threadID != 0 && processID == dstProcID)
+				{
+					return hWnd;
+				}
+			}
+
+			return IntPtr.Zero;
 		}
 	}
 }
