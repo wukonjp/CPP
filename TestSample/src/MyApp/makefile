@@ -14,6 +14,13 @@ TARGET		= $(OUTDIR)/MyApp
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:%.cpp=%.o)))
 DEPS		= $(OBJS:%.o=%.d)
 
+#ソースリストからターゲットオブジェクトとマッチするソースを取得する関数
+GetSrc		= $(strip $(foreach src, $(SRCS),							\
+					$(if $(filter $(@F:%.o=%.cpp), $(notdir $(src))),	\
+						$(src)											\
+					)													\
+				))
+
 all:		$(TARGET)
 
 $(TARGET):	$(OBJS)
@@ -22,7 +29,7 @@ $(TARGET):	$(OBJS)
 
 $(OBJS): $(SRCS)
 			mkdir -p $(OBJDIR)
-			$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $(filter %$(notdir $(@:%.o=%.cpp)), $(SRCS))
+			$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $(call GetSrc)
 
 clean:
 			rm -f $(OBJS) $(DEPS) $(TARGET)
