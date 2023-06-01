@@ -88,15 +88,43 @@ int main()
 		std::cout << "スタック生成（デフォルトコンストラクタ）" << std::endl;
 		auto d = MainData();		// デフォルトコンストラクタ
 		print(d);
+	}
 
+	{
+		std::cout << "スタック生成（通常コンストラクタ + 代入）" << std::endl;
 		MainData z = MainData(3);	// 通常コンストラクタ
+		print(z);
+	}
+
+	{
+		std::cout << "スタック生成（通常コンストラクタ）" << std::endl;
 		MainData t(3);				// 通常コンストラクタ
+		print(t);
+	}
 
+	{
+		std::cout << "スタック生成（コピーコンストラクタ）" << std::endl;
+		auto d = MainData();		// デフォルトコンストラクタ
 		MainData e = MainData(d);	// コピーコンストラクタ
-		MainData f(e);				// コピーコンストラクタ
+		print(e);
+	}
 
+	{
+		std::cout << "スタック生成（初期化なし, 初期化リスト）" << std::endl;
+		auto d = MainData();		// デフォルトコンストラクタ
 		MainData g;					// デフォルトコンストラクタ
-		g = e;						// 代入演算子
+		g = d;						// 代入演算子
+		print(g);
+	}
+
+	{
+		std::cout << "スタック生成（コンストラクタ未定義構造体の初期化）" << std::endl;
+//		SubData s1;
+		SubData s2 = {};
+		MainData q;
+//		q.sub1 = s1;	// ビルドエラー
+		q.sub2 = s2;
+		print(q);
 	}
 
 	{
