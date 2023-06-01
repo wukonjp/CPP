@@ -91,7 +91,7 @@ int main()
 	}
 
 	{
-		std::cout << "スタック生成（通常コンストラクタ + 代入）" << std::endl;
+		std::cout << "スタック生成（通常コンストラクタ／代入スタイル）" << std::endl;
 		MainData z = MainData(3);	// 通常コンストラクタ
 		print(z);
 	}
@@ -104,16 +104,16 @@ int main()
 
 	{
 		std::cout << "スタック生成（コピーコンストラクタ）" << std::endl;
-		auto d = MainData();		// デフォルトコンストラクタ
-		MainData e = MainData(d);	// コピーコンストラクタ
+		MainData t(3);				// 通常コンストラクタ
+		MainData e = MainData(t);	// コピーコンストラクタ
 		print(e);
 	}
 
 	{
-		std::cout << "スタック生成（初期化なし, 初期化リスト）" << std::endl;
-		auto d = MainData();		// デフォルトコンストラクタ
+		std::cout << "スタック生成（代入演算子）" << std::endl;
+		MainData t(3);				// 通常コンストラクタ
 		MainData g;					// デフォルトコンストラクタ
-		g = d;						// 代入演算子
+		g = t;						// 代入演算子
 		print(g);
 	}
 
